@@ -8,7 +8,7 @@ A high-performance, visually stunning Kanban board built with **100% Vanilla Jav
 
 
 ## 🚀 Live Demo
-[Link to your GitHub Pages or Vercel deployment]
+[https://task-manager-kanban-gules.vercel.app/]
 
 ---
 
@@ -54,7 +54,7 @@ src/
 Clone the repository:
 code
 Bash
-git clone https://github.com/your-username/task-manager-kanban.git
+git clone https://github.com/anabellypassos/task-manager-kanban
 Open the project:
 Simply open src/index.html in any modern web browser.
 Alternatively, use the VS Code Live Server extension for the best experience.
