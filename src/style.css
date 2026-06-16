@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg: #f3f4f6; /* Cinza levemente mais azulado */
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --danger: #ef4444;
+    
+    /* Cores das Colunas (Vivas e modernas) */
+    --todo-bg: #e0f2fe;    /* Azul claro */
+    --todo-text: #0369a1;
+    --progress-bg: #fef3c7; /* Âmbar claro */
+    --progress-text: #b45309;
+    --done-bg: #dcfce7;    /* Verde claro */
+    --done-text: #15803d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    line-height: 1.5;
+}
+
+/* --- HEADER --- */
+header { 
+    background: white; 
+    padding: 1.5rem 2rem; 
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+}
+
+/* --- CONTROLES E DROPDOWNS --- */
+.controls { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem; 
+    width: 100%;
+}
+
+/* Estilização do Input e do Select (Dropdown) */
+input, select { 
+    width: 100%; 
+    padding: 0.8rem 1rem; 
+    border-radius: 10px; 
+    border: 2px solid #e2e8f0; 
+    outline: none; 
+    font-size: 0.95rem;
+    font-family: inherit;
+    background-color: white;
+    transition: all 0.2s;
+    appearance: none; /* Remove seta padrão no select */
+}
+
+/* Seta customizada para o select */
+select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+    padding-right: 2.5rem;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+#addTaskBtn { 
+    background: var(--primary); 
+    color: white; 
+    border: none; 
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px; 
+    font-weight: 700; 
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#addTaskBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* --- BOARD E COLUNAS --- */
+.board { 
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; 
+    padding: 2rem 1.5rem; 
+}
+
+.column { 
+    padding: 1.5rem; /* Padding interno generoso */
+    border-radius: 20px; 
+    min-height: 300px;
+    transition: transform 0.2s;
+}
+
+/* Cores específicas por coluna */
+.column[data-status="todo"] { background-color: var(--todo-bg); border: 2px solid #bae6fd; }
+.column[data-status="inprogress"] { background-color: var(--progress-bg); border: 2px solid #fde68a; }
+.column[data-status="done"] { background-color: var(--done-bg); border: 2px solid #bbf7d0; }
+
+.column h2 { 
+    font-size: 0.9rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem; 
+    font-weight: 800;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* Texto das colunas */
+.column[data-status="todo"] h2 { color: var(--todo-text); }
+.column[data-status="inprogress"] h2 { color: var(--progress-text); }
+.column[data-status="done"] h2 { color: var(--done-text); }
+
+/* --- CARDS --- */
+.task-card { 
+    background: white; 
+    padding: 1.2rem; 
+    border-radius: 15px; 
+    margin-bottom: 1rem; 
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.8);
+    cursor: grab;
+}
+
+.task-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.delete-btn { 
+    position: absolute; 
+    right: 10px; 
+    top: 10px; 
+    background: #fee2e2; 
+    color: var(--danger); 
+    border: none; 
+    width: 28px;
+    height: 28px;
+    border-radius: 8px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover { background: var(--danger); color: white; }
+
+/* --- MODAL (ESTILO NOTION/IPHONE) --- */
+.modal-overlay { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(15, 23, 42, 0.5); 
+    backdrop-filter: blur(8px);
+    display: flex; 
+    align-items: flex-end; 
+    justify-content: center; 
+    z-index: 1000;
+}
+
+.modal { 
+    background: white; 
+    padding: 2rem; 
+    border-radius: 30px 30px 0 0; 
+    width: 100%; 
+    max-width: 550px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal h3 { margin-bottom: 1.5rem; font-size: 1.3rem; font-weight: 800; }
+
+.modal-footer { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.8rem; 
+    margin-top: 1.5rem;
+}
+
+/* Reutilizando estilo dos botões */
+.modal button {
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+#modalConfirmBtn { background: var(--primary); color: white; }
+#modalCancelBtn { background: #f1f5f9; color: var(--text-muted); }
+
+.hidden { display: none !important; }
+
+/* --- DESKTOP --- */
+@media (min-width: 768px) {
+    header { flex-direction: row; padding: 1.5rem 4rem; }
+    .controls { flex-direction: row; width: auto; }
+    input, select { width: 220px; }
+    #addTaskBtn { order: 1; }
+
+    .board { 
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
+        padding: 3rem 4rem;
+        align-items: start;
+        gap: 2rem;
+    }
+
+    .modal-overlay { align-items: center; }
+    .modal { border-radius: 24px; }
+    .modal-footer { flex-direction: row; justify-content: flex-end; }
+    .modal button { width: auto; min-width: 120px; }
+    
+    .delete-btn { opacity: 0; }
+    .task-card:hover .delete-btn { opacity: 1; }
+}

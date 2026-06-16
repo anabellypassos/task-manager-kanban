@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Kanban</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 data-i18n="title">Kanban Board</h1>
+        <div class="controls">
+            <select id="langSelect">
+                <option value="pt-BR">🇧🇷 PT</option>
+                <option value="en-US">🇺🇸 EN</option>
+            </select>
+            <input type="text" id="searchInput" data-i18n="search_placeholder" placeholder="Search...">
+            <select id="filterSelect">
+                <option value="all" data-i18n="filter_all">All</option>
+                <option value="active" data-i18n="filter_active">Active</option>
+                <option value="completed" data-i18n="filter_completed">Completed</option>
+            </select>
+            <button id="addTaskBtn" data-i18n="add_task">+ Add Task</button>
+        </div>
+    </header>
+
+    <main class="board">
+        <div class="column" data-status="todo">
+            <h2 data-i18n="todo">To Do</h2>
+            <div class="task-list"></div>
+        </div>
+        <div class="column" data-status="inprogress">
+            <h2 data-i18n="inprogress">In Progress</h2>
+            <div class="task-list"></div>
+        </div>
+        <div class="column" data-status="done">
+            <h2 data-i18n="done">Done</h2>
+            <div class="task-list"></div>
+        </div>
+    </main>
+
+    <!-- Modal Moderno -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal">
+            <h3 id="modalTitle">Title</h3>
+            <div class="modal-body">
+                <input type="text" id="modalInput">
+                <p id="modalDesc"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="modalCancelBtn" data-i18n="modal_cancel">Cancel</button>
+                <button id="modalConfirmBtn" data-i18n="modal_confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="storage.js"></script>
+    <script src="i18n.js"></script>
+    <script src="dragdrop.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
